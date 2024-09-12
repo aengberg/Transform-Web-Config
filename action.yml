@@ -1,5 +1,10 @@
 name: 'Transform Web Config'
+description: 'Uses Microsoft.Web.XmlTransform to transform Web.config files without msbuild'
 
+branding:
+  icon: 'external-link'
+  color: 'green'
+  
 inputs:
     basefile:
         description: 'Base Web Config file (Web.config)'
