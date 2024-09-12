@@ -1,0 +1,24 @@
+name: 'Transform Web Config'
+
+inputs:
+    basefile:
+        description: 'Base Web Config file (Web.config)'
+        type: string
+    transformfile:
+        description: 'Transform Web Config file (Web.*.config)'
+        type: string
+
+runs:
+    using: "composite"
+    steps:
+    - name: Transform Web Config
+      shell: powershell
+      run: | 
+        try {
+            . ("$PSScriptRoot\scripts\TransformWebConfig.ps1")
+        }
+        catch {
+            Write-Host "Error while loading supporting PowerShell Scripts" 
+            return
+        }
+        TransformWebConfig "${{ inputs.basefile }}" "${{ inputs.transformfile }}"
