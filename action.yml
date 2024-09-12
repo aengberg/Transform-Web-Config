@@ -19,11 +19,5 @@ runs:
     - name: Transform Web Config
       shell: powershell
       run: | 
-        try {
-            . ("$PSScriptRoot\scripts\TransformWebConfig.ps1")
-        }
-        catch {
-            Write-Host "Error while loading supporting PowerShell Scripts" 
-            return
-        }
+        . ${{ github.action_path }}\scripts\TransformWebConfig.ps1
         TransformWebConfig "${{ inputs.basefile }}" "${{ inputs.transformfile }}"
