@@ -1,19 +1,19 @@
 function TransformWebConfig([string]$baseFile, [string]$transformFile)
 {
   $scriptpath = $PSScriptRoot + "\"
-  $baseFilePath = $scriptpath + $baseFile
-  $transformFilePath = $scriptpath + $transformFile
+  $baseFilePath = $baseFile
+  $transformFilePath = $transformFile
   
   Add-Type -LiteralPath "$PSScriptRoot\microsoft.web.xdt.3.1.0\lib\net40\Microsoft.Web.XmlTransform.dll"
 
   if(([string]::IsNullOrEmpty($baseFilePath)) -Or (-Not (Test-Path $baseFilePath)))
   {
-	  throw "Base file not found";
+	  throw "Base file not found $baseFilePath";
   }
   
   if(([string]::IsNullOrEmpty($transformFilePath)) -Or (-Not (Test-Path $transformFilePath)))
   {
-	  throw "Transform file not found";
+	  throw "Transform file not found $transformFilePath";
   }
   
   $xmlTransformableDoc = New-Object   Microsoft.Web.XmlTransform.XmlTransformableDocument;
