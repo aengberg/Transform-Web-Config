@@ -19,5 +19,6 @@ runs:
     - name: Transform Web Config
       shell: powershell
       run: | 
+        echo ${{ inputs.basefile }} ${{ inputs.transformfile }}
         . ${{ github.action_path }}\scripts\TransformWebConfig.ps1
         TransformWebConfig "${{ inputs.basefile }}" "${{ inputs.transformfile }}"
