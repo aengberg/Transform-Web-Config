@@ -7,7 +7,7 @@ The powershell script uses Microsoft.Web.XmlTransform 3.1.0 downloaded from http
 In the current release the action needs full path to the web.config-files
 
 ```yaml
-name: "Transform web.config
+name: "Transform web.config"
 on: [push]
 
 jobs:
