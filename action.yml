@@ -24,7 +24,7 @@ runs:
             $baseFilePath = "${{ inputs.basefile }}"
             $transformFilePath = "${{ inputs.transformfile }}"
             
-            Add-Type -LiteralPath "$PSScriptRoot\microsoft.web.xdt.3.1.0\lib\net40\Microsoft.Web.XmlTransform.dll"
+            Add-Type -LiteralPath "$..\..\_actions\aengberg\Transform-Web-Config\v1.0.6\microsoft.web.xdt.3.1.0\lib\net40\Microsoft.Web.XmlTransform.dll"
             
             if(([string]::IsNullOrEmpty($baseFilePath)) -Or (-Not (Test-Path $baseFilePath)))
             {
