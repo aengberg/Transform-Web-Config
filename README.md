@@ -12,7 +12,7 @@ jobs:
   deploy:
   runs-on: windows
   steps:
-  - uses: aengberg/Transform-Web-Config@v1.0.3
+  - uses: aengberg/Transform-Web-Config@v1.0.7
   with:
         basefile: "Web.config"
         transformfile: "Web.Release.config"
