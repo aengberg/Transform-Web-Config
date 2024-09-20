@@ -19,6 +19,33 @@ runs:
     - name: Transform Web Config
       shell: powershell
       run: | 
-        echo ${{ inputs.basefile }} ${{ inputs.transformfile }}
-        . ${{ github.action_path }}\scripts\TransformWebConfig.ps1
-        TransformWebConfig "${{ inputs.basefile }}" "${{ inputs.transformfile }}"
+            echo ${{ inputs.basefile }} ${{ inputs.transformfile }}
+            $scriptpath = $PSScriptRoot + "\"
+            $baseFilePath = "${{ inputs.basefile }}"
+            $transformFilePath = "${{ inputs.transformfile }}"
+            
+            Add-Type -LiteralPath "$PSScriptRoot\microsoft.web.xdt.3.1.0\lib\net40\Microsoft.Web.XmlTransform.dll"
+            
+            if(([string]::IsNullOrEmpty($baseFilePath)) -Or (-Not (Test-Path $baseFilePath)))
+            {
+                throw "Base file not found $baseFilePath";
+            }
+            
+            if(([string]::IsNullOrEmpty($transformFilePath)) -Or (-Not (Test-Path $transformFilePath)))
+            {
+                throw "Transform file not found $transformFilePath";
+            }
+            
+            $xmlTransformableDoc = New-Object   Microsoft.Web.XmlTransform.XmlTransformableDocument;
+            $xmlTransformableDoc.PreserveWhitespace = $true
+            $xmlTransformableDoc.Load($baseFilePath);
+            
+            $xmlTransformation = New-Object Microsoft.Web.XmlTransform.XmlTransformation($transformFilePath);
+            
+            if ($xmlTransformation.Apply($xmlTransformableDoc) -eq $false)
+            {
+                throw "Transformation failed."
+            }
+            $xmlTransformableDoc.Save($baseFilePath);
+            
+            Write-Host "Transformation succeeded"
